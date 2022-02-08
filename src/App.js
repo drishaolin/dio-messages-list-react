@@ -1,7 +1,14 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 function App() {
+    const [messageList, setMessageList] = useState([]);
     
+
+    useEffect(() => {
+        fetch("http://localhost:5000/message")
+            .then((res) => res.json())
+            .then((json) => setMessageList(json));
+    }, []);
 
     return (
         <>
@@ -35,13 +42,16 @@ function App() {
                 </button>
 
                 <h3 className="fs-4 mt-4">Últimas mensagens enviadas: </h3>
-                <div className="card" style={{ width: "50rem" }}>
+                {messageList.map(({id, message, email, created_at}, index) => 
+                <div key={id} className="card my-3" style={{ width: "50rem" }}>
                     <div className="card-body">
-                        <h5 className="card-title">Email</h5>
-                        <h6 className="card-subtitle mb-2 text-muted">Data</h6>
-                        <p className="card-text">Mensagem</p>
+                        <h5 className="card-title">{email}</h5>
+                        <h6 className="card-subtitle mb-2 text-muted">{created_at}</h6>
+                        <p className="card-text">{message}</p>
                     </div>
                 </div>
+                
+                )}
             </div>
         </>
     );
