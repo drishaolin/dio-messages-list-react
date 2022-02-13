@@ -18,6 +18,10 @@ function App() {
         };
     }, [render]);
 
+    const dateFormatter = (dateString) => {
+        const date = dateString.slice(0,10).split("-").reverse().join("/");
+        return date;
+    }
     function validateEmail(value) {
         const isEmailValid =
             /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -150,7 +154,7 @@ function App() {
                     <div key={id} className="card my-3" style={{ width: "50rem" }}>
                         <div className="card-body">
                             <h5 className="card-title">{email}</h5>
-                            <h6 className="card-subtitle mb-2 text-muted">{created_at}</h6>
+                            <h6 className="card-subtitle mb-2 text-muted">{`Enviado em: ${dateFormatter(created_at)}`}</h6>
                             <p className="card-text">{message}</p>
                         </div>
                     </div>
